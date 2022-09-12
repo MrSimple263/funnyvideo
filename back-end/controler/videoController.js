@@ -1,0 +1,43 @@
+const Video = require('../model/Video')
+const fetchVideoInfo = require('updated-youtube-info');
+const {CODE_INVALID_ID_VIDEO, CODE_INVALID_URL_VIDEO} = require('../constant');
+
+async function videoSize(req, res) {
+    const size = await Video.countDocuments()
+    res.status(200).json(size);
+}
+
+async function listUp(req, res) {
+    let perPage = 10;
+    let page = 1 || req.params.page;
+    const videos = await Video.find({})
+        .skip((perPage * page) - perPage)
+        .limit(perPage).exec();
+    res.status(200).json(videos);
+}
+
+async function upload(req, res) {
+    const urlVideo = new URL(req.body.url);
+    const userShare = req.user.username;
+    const idVideo = urlVideo.searchParams.get('v');
+    if (!idVideo) res.status(400).json({code: CODE_INVALID_URL_VIDEO, message: 'Invalid URL'});
+    fetchVideoInfo(idVideo).then(async videoInfo => {
+        const {title, description} = videoInfo;
+        const newVideo = new Video({
+            id: idVideo,
+            title,
+            description,
+            userShare
+        })
+        const video = await newVideo.save();
+        res.status(200).json(video)
+    }).catch(err => {
+        res.status(400).json({code: CODE_INVALID_ID_VIDEO, message: 'Invalid idVideo'})
+    });
+}
+
+module.exports = {
+    videoSize,
+    listUp,
+    upload
+}
