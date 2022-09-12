@@ -1,10 +1,13 @@
 import React from 'react';
 import Login from './Login'
 import {useState} from "react"
+import {useNavigate, useLocation} from "react-router-dom";
 import header from '../public/css/header.css'
 
 export default function () {
     const [user, setUser] = useState(undefined)
+    const navigate = useNavigate();
+    const location = useLocation();
 
     function loginFail() {
 
@@ -18,6 +21,10 @@ export default function () {
 
     }
 
+    function navigateShare(){
+        if (location.pathname === '/share') return;
+        navigate('share')
+    }
 
     return (
         <div className={'header'}>
@@ -29,7 +36,12 @@ export default function () {
             </div>
             <div className={'right-header'}>
                 <div className={'login'}>
-                    <Login/>
+                    {!user ? <Login />:
+                        <div>
+                            <button onClick={navigateShare}>Share</button>
+                            <button onClick={logOut}>Logout</button>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
