@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Login from './Login'
 import {useState} from "react"
 import {useNavigate, useLocation} from "react-router-dom";
 import header from '../public/css/header.css'
+import {checkToken} from "../api/user";
 
 export default function () {
     const [user, setUser] = useState(undefined)
@@ -12,9 +13,23 @@ export default function () {
     function loginFail() {
 
     }
+    useEffect(() => {
+        const token = sessionStorage.getItem('token')
+        if (token){
+            checkToken(token).then(({userName})=>{
+                setUser(userName)
+            })
+        }else {
+            if (location.pathname !== '/'){
+                setUser(undefined)
+                navigate('/')
+            }
+        }
+    });
 
-    function loginSuccess() {
-
+    function loginSuccess({userName, token}) {
+        sessionStorage.setItem('token', token);
+        setUser(userName)
     }
 
     function logOut() {
@@ -28,7 +43,7 @@ export default function () {
 
     return (
         <div className={'header'}>
-            <div className={'left-header'}>
+            <div className={'left-header'} onClick={()=>navigate('/')}>
                 <div className={'icon'} style={{height: 50, width: 50}}>
                     <img height={'100%'} width={'100%'} src={'./public/img/home.png'} alt={'img'}/>
                 </div>
@@ -36,8 +51,9 @@ export default function () {
             </div>
             <div className={'right-header'}>
                 <div className={'login'}>
-                    {!user ? <Login />:
+                    {!user ? <Login loginSuccessCallBack = {loginSuccess}/>:
                         <div>
+                            <div>Welcome {user}</div>
                             <button onClick={navigateShare}>Share</button>
                             <button onClick={logOut}>Logout</button>
                         </div>

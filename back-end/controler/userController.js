@@ -12,6 +12,9 @@ async function signUp(req, res) {
         user.password = '***';
         res.status(200).json(user)
     } catch (ex) {
+        if (ex.code === 11000) {
+            return res.status(400).json({message: 'User name have registered please user another name!'})
+        }
         res.status(500).json(ex)
     }
 }
@@ -21,15 +24,18 @@ async function logIn(req, res) {
         const username = req.body.username;
         const pass = req.body.password;
         const user = await User.findOne({ username }).exec();
+        console.log(user)
+        if (!user){
+            return res.status(400).json({message:'Username not register!'})
+        }
         const match = await bcrypt.compare(pass, user.password);
         if (!match){
-            res.status(403).json({message:'username or password invalid!'})
+            return res.status(400).json({message:'Password Wrong!'})
         }
         const token = jwt.sign({username},process.env.ACCESS_TOKEN_SECRET,{ expiresIn: '1h' },null);
         const userInfo ={username,token};
-        res.status(200).json(userInfo)
+        return res.status(200).json(userInfo)
     } catch (ex) {
-        console.log(ex)
         res.status(500).json(ex)
     }
 }

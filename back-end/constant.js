@@ -1,0 +1,4 @@
+module.exports = {
+    CODE_INVALID_URL_VIDEO:100,
+    CODE_INVALID_ID_VIDEO:200,
+}

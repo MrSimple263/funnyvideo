@@ -11,6 +11,10 @@
     padding-left: 5%;
 }
 
+.left-header:hover{
+    cursor: grab;
+}
+
 .right-header {
     padding-right: 5%;
 }
