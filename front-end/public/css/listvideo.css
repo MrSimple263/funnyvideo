@@ -1,0 +1,9 @@
+.list-video{
+    list-style-type: none;
+    width: 60%;
+    margin: auto;
+}
+.pagination{
+    display:flex;
+    justify-content:center
+}
