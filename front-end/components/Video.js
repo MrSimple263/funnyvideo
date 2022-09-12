@@ -1,8 +1,11 @@
 import React from "react";
 import video from '../public/css/video.css'
 export default function ({id, title, description, shareBy}){
+    function openLink(url){
+        window.open(url, '_blank').focus();
+    }
     return(
-        <div className={'video-container'}>
+        <div className={'video-container'} onClick={()=>{openLink(`https://www.youtube.com/watch?v=`+id)}}>
             <div className={'thumbnail'} style={{width:'40%'}}>
                 <img height={'100%'} width={'100%'} src={`https://img.youtube.com/vi/${id}/hqdefault.jpg`}/>
             </div>
