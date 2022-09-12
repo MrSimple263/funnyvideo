@@ -24,7 +24,6 @@ async function logIn(req, res) {
         const username = req.body.username;
         const pass = req.body.password;
         const user = await User.findOne({ username }).exec();
-        console.log(user)
         if (!user){
             return res.status(400).json({message:'Username not register!'})
         }

@@ -26,7 +26,6 @@ export async function checkToken(token) {
         const res = await axios.get(BACKEND_URL + '/user', {headers: {Authorization: 'Bearer ' + token}});
         return {userName: res.data.username}
     } catch (ex) {
-        console.log(ex)
         throw ex.response.data.message;
     }
 }

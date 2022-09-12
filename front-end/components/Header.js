@@ -22,7 +22,7 @@ export default function () {
                 navigate('/')
             }
         }
-    });
+    },[]);
 
     function loginSuccess({userName, token}) {
         sessionStorage.setItem('token', token);

@@ -17,23 +17,31 @@ async function listUp(req, res) {
 }
 
 async function upload(req, res) {
-    const urlVideo = new URL(req.body.url);
-    const userShare = req.user.username;
-    const idVideo = urlVideo.searchParams.get('v');
-    if (!idVideo) res.status(400).json({code: CODE_INVALID_URL_VIDEO, message: 'Invalid URL'});
-    fetchVideoInfo(idVideo).then(async videoInfo => {
-        const {title, description} = videoInfo;
-        const newVideo = new Video({
-            id: idVideo,
-            title,
-            description,
-            userShare
-        })
-        const video = await newVideo.save();
-        res.status(200).json(video)
-    }).catch(err => {
-        res.status(400).json({code: CODE_INVALID_ID_VIDEO, message: 'Invalid idVideo'})
-    });
+    try {
+        const urlVideo = new URL(req.body.url);
+        const userShare = req.user.username;
+        const idVideo = urlVideo.searchParams.get('v');
+        if (!idVideo) res.status(400).json({code: CODE_INVALID_URL_VIDEO, message: 'Invalid URL'});
+        fetchVideoInfo(idVideo).then(async videoInfo => {
+            const {title, description} = videoInfo;
+            const newVideo = new Video({
+                id: idVideo,
+                title,
+                description,
+                userShare
+            })
+            const video = await newVideo.save();
+            res.status(200).json(video)
+        }).catch(err => {
+            if (err.code === 11000) {
+                return res.status(400).json({message: 'Video has uploaded!'})
+            }
+            res.status(400).json({code: CODE_INVALID_ID_VIDEO, message: 'Invalid idVideo'})
+        });
+    }catch (ex){
+        res.status(400).json({message: 'This not URL'})
+    }
+
 }
 
 module.exports = {
