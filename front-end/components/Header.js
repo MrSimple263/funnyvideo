@@ -1,7 +1,7 @@
 import React from 'react';
 import Login from './Login'
-
-import {useState} from "react";
+import {useState} from "react"
+import header from '../public/css/header.css'
 
 export default function () {
     const [user, setUser] = useState(undefined)
