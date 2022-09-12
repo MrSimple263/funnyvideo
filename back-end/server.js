@@ -19,4 +19,4 @@ app.get('/',(req,res)=>{
     res.sendFile(path.join(__dirname+'/index.html'));
 })
 
-app.listen('3000' || process.env.port)
+app.listen(process.env.PORT || '3000')
