@@ -10,17 +10,14 @@ export default function () {
     const navigate = useNavigate();
     const location = useLocation();
 
-    function loginFail() {
-
-    }
     useEffect(() => {
         const token = sessionStorage.getItem('token')
-        if (token){
-            checkToken(token).then(({userName})=>{
+        if (token) {
+            checkToken(token).then(({userName}) => {
                 setUser(userName)
             })
-        }else {
-            if (location.pathname !== '/'){
+        } else {
+            if (location.pathname !== '/') {
                 setUser(undefined)
                 navigate('/')
             }
@@ -33,17 +30,19 @@ export default function () {
     }
 
     function logOut() {
-
+        sessionStorage.clear();
+        navigate('/')
+        setUser(undefined)
     }
 
-    function navigateShare(){
+    function navigateShare() {
         if (location.pathname === '/share') return;
         navigate('share')
     }
 
     return (
         <div className={'header'}>
-            <div className={'left-header'} onClick={()=>navigate('/')}>
+            <div className={'left-header'} onClick={() => navigate('/')}>
                 <div className={'icon'} style={{height: 50, width: 50}}>
                     <img height={'100%'} width={'100%'} src={'./public/img/home.png'} alt={'img'}/>
                 </div>
@@ -51,7 +50,7 @@ export default function () {
             </div>
             <div className={'right-header'}>
                 <div className={'login'}>
-                    {!user ? <Login loginSuccessCallBack = {loginSuccess}/>:
+                    {!user ? <Login loginSuccessCallBack={loginSuccess}/> :
                         <div>
                             <div>Welcome {user}</div>
                             <button onClick={navigateShare}>Share</button>
