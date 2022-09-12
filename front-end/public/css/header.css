@@ -1,7 +1,20 @@
 .header {
     display: flex;
     justify-content: space-between;
+    border-bottom: grey 2px solid;
+    align-items: center;
+    padding-bottom: 5px;
 }
-.left-header{
+
+.left-header {
     display: flex;
+    padding-left: 5%;
+}
+
+.right-header {
+    padding-right: 5%;
+}
+
+.icon {
+    margin: auto;
 }
