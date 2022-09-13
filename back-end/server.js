@@ -20,5 +20,9 @@ app.use('/video', videoRouter)
 app.get('/',(req,res)=>{
     res.sendFile(path.join(__dirname+'/index.html'));
 })
+//deal 404 not found
+app.use(function (req, res) {
+    res.sendFile(path.join(__dirname+'/index.html'));
+});
 
 app.listen(process.env.PORT || '3000')
