@@ -7,7 +7,7 @@ echo "$PWD"
 npm run build
 cp -r ./public/img ../back-end/public/
 cp -r ./bundle/index_bundle.js ../back-end/public/
-git add back-end/public/*
+git add ../back-end/public/*
 now=$(date +"%T")
 git commit -m "deploy $now"
 git subtree push --prefix back-end heroku master
