@@ -9,11 +9,12 @@ async function videoSize(req, res) {
 
 async function listUp(req, res) {
     let perPage = 10;
-    let page = 1 || req.params.page;
+    let page = req.query.page || 1;
     const videos = await Video.find({})
         .skip((perPage * page) - perPage)
-        .limit(perPage).exec();
-    res.status(200).json(videos);
+        .limit(perPage).sort({createdAt:'descending'}).exec();
+    const size = await Video.countDocuments()
+    res.status(200).json({videos,size});
 }
 
 async function upload(req, res) {

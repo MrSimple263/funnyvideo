@@ -22,3 +22,14 @@
 .icon {
     margin: auto;
 }
+.login button{
+    margin-left: 5px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.container-logged{
+    display: flex;
+    height: 30px;
+}

@@ -42,8 +42,8 @@ export default function ({loginSuccessCallBack, loginFailCallBack}) {
             <div className={'input'}>
                 <input type={"password"} placeholder={"password"} onChange={(e) => {setPassWord(e.target.value)}}/>
             </div>
-            <button onClick={login}>Login</button>
-            <button onClick={signup}>Signup</button>
+            <button style={{background:'#a84ff1'}} onClick={login}>Login</button>
+            <button style={{background:'#e82b4c'}} onClick={signup}>Signup</button>
         </div>
     )
 }

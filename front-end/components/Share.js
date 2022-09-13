@@ -25,7 +25,7 @@ export default function () {
                 setMessage('This is not URL please check again');
             } else {
                 await uploadVideo(link);
-                setMessage('Upload video success!');
+                setMessage('Upload video success!Click to icon homepage to see video Uploaded!');
             }
         } catch (ex) {
             alert(ex)
@@ -41,7 +41,7 @@ export default function () {
             <div className={'share-container'}>
                 <div className={'input-container'}>
                     <div className={'input'}>
-                        <input className={'share-input'} type={"text"} placeholder={'enter url'} onChange={(e) => {
+                        <input className={'share-input'} type={"text"} placeholder={'Enter Youtube video url'} onChange={(e) => {
                             setMessage('');
                             setLink(e.target.value);
                         }}/>

@@ -22,7 +22,7 @@ export default function () {
                 navigate('/')
             }
         }
-    },[]);
+    }, []);
 
     function loginSuccess({userName, token}) {
         sessionStorage.setItem('token', token);
@@ -51,10 +51,11 @@ export default function () {
             <div className={'right-header'}>
                 <div className={'login'}>
                     {!user ? <Login loginSuccessCallBack={loginSuccess}/> :
-                        <div>
-                            <div>Welcome {user}</div>
-                            <button onClick={navigateShare}>Share</button>
-                            <button onClick={logOut}>Logout</button>
+                        <div className={'container-logged'}>
+                            <div style={{alignSelf: "center"}}>Welcome user <span
+                                style={{fontWeight: "bold", fontStyle: "italic", fontSize: '1.2em',marginRight:'10px'}}>{user}</span></div>
+                            <button style={{background: '#a84ff1'}} onClick={navigateShare}>Share Video</button>
+                            <button style={{background: '#e82b4c'}} onClick={logOut}>Logout</button>
                         </div>
                     }
                 </div>

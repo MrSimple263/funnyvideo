@@ -8,6 +8,8 @@ const userRouter = require('./route/user')
 const videoRouter = require('./route/video')
 
 app.use(cors())
+console.log('url',process.env.URL_DB)
+console.log('token',process.env.ACCESS_TOKEN_SECRET)
 mongoose.connect(process.env.URL_DB, () => {
     console.log('DB connected')
 })

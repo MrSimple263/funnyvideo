@@ -7,3 +7,17 @@
     display:flex;
     justify-content:center
 }
+
+.button-page {
+    background-color: #a84ff1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 50px;
+    height: 35px;
+}
+
+.button-page:disabled{
+    background-color: #dbbcf3;
+}

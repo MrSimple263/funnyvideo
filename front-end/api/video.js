@@ -13,11 +13,13 @@ export async function uploadVideo(url, token = sessionStorage.getItem('token')) 
 
 export async function listUp(page = 1, token = sessionStorage.getItem('token')) {
     try {
-        const res = await axios.get(BACKEND_URL + '/video/list', {headers: {Authorization: 'Bearer ' + token}});
-        return res.data.map(v => {
+        const res = await axios.get(BACKEND_URL + `/video/list?page=${page}`, {headers: {Authorization: 'Bearer ' + token}});
+        const videos = res.data.videos.map(v => {
             const {id, title, description, userShare} = v
             return {id, title, description, userShare}
         })
+        const size = res.data.size;
+        return {videos, size}
     } catch (ex) {
         throw ex;
     }
