@@ -20,6 +20,8 @@
     "updated-youtube-info": "^1.4.7"
   },
   "devDependencies": {
-    "nodemon": "^2.0.19"
+    "jest": "^29.0.3",
+    "nodemon": "^2.0.19",
+    "supertest": "^6.2.4"
   }
 }
